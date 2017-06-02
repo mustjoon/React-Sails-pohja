@@ -1,0 +1,74 @@
+import { observable, action,toJS,computed } from 'mobx';
+import axios from 'axios';
+import {userService} from '../services';
+import { autobind } from 'core-decorators';
+import { create, persist } from 'mobx-persist';
+
+import {emojiService} from '../services';
+
+@autobind
+class EmojiStore {
+
+  @observable emoji = {
+		name: '',
+		emoji: ''
+	}
+	@persist('list') @observable emojiList = [];
+
+	constructor(){
+		this.getEmojis();
+	}
+
+	
+
+	getEmojis(){
+		emojiService.find().then((res) => {
+			this.emojiList = res.data;
+		})
+	}
+
+	removeEmoji(id){
+		
+		emojiService.remove(id).then((res => {
+
+			let emoji = this.emojiList.find(x => x.id === res.data.id);
+
+			this.emojiList.remove(emoji);
+		}))
+	}
+
+	@action updateEmoji(obj){
+		let values = [];
+		values[obj.name] = obj.value
+		this.emoji = Object.assign({},this.emoji,values);
+	}
+
+
+	@action saveEmoji(){
+		const params = toJS(this.emoji);
+		emojiService.create(params).then((res) => {
+			console.log(res.data);
+
+			this.emojiList.push(res.data);
+
+		})
+	}
+
+
+ 
+
+}
+
+const emojiStore = new EmojiStore();
+
+const hydrate = create({
+    storage: localStorage,  
+                            
+    jsonify: false 
+                  
+})
+
+hydrate('emoji', emojiStore)
+    // post hydration
+    .then(() => console.log('emojis hydrated'))
+export default emojiStore;
