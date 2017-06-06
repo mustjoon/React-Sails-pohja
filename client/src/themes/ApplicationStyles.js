@@ -30,5 +30,8 @@ export default {
     caption: {
       ...Fonts.style.medium
     }
+  },
+  textField: {
+   
   }
 };

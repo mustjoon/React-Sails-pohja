@@ -1,33 +1,51 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import { Link, withRouter } from 'react-router-dom';
+import { FormGroup,FormControl,ControlLabel,HelpBlock,Button } from 'react-bootstrap';
+import { Redirect,Link } from 'react-router-dom';
+import ActiveLink from './ui/ActiveLink';
+import styles from './styles/Header';
 
 
-import Button from './ui/Button';
 
-@withRouter
-@inject('appState')
-@inject('userStore')
-@observer
-export default class TopBar extends Component {
+const auth = (isAuthenticated,logout,history) => {
+	isAuthenticated ? logout() : history.push('/auth/login');
+};
 
-	isAuthenticated;
-	constructor(props) {
-		super(props);
-		this.store = props.appState;
-		this.userStore = props.userStore;
-		this.isAuthenticated = props.userStore.isAuthenticated
-	}
+const navItems = (isAuthenticated) => {
 
-	authenticate() {
+	if(!isAuthenticated) return null;
+
+	const navs = [{id: 1,text: 'Emojis',to: '/emoji'},{id:2,text: 'ToDo',to: '/todos'}]
+
+	let navItems = navs.map((nav) => {
+		return (
+			<Link key={nav.id} style={styles.navItem} to={nav.to}>{nav.text}</Link>
+		)
+	});
+	return (
+		<div style={styles.nav}>
+			{navItems}
+		</div>
+	)
+}
+
+
+const Header = ({isAuthenticated,logout,history}) => {
 	
-		if(this.isAuthenticated){
-			this.userStore.logout();
-		}else{
-			this.props.history.push('/auth/login');
-		}
-	}
+	return (
+		<div style={styles.container} className='topbar'>
+			{navItems(isAuthenticated)}
+			<div style={styles.toggle}
+				onClick={() => auth(isAuthenticated,logout,history)}
+			>{isAuthenticated ? 'Log out' : 'Sign in'}</div>
+		</div>
+	)
 
+};
+
+export default Header;
+
+
+/*
 	renderMenu(){
 		if(!this.isAuthenticated){
 			return null;
@@ -37,20 +55,4 @@ export default class TopBar extends Component {
 		)
 		
 	}
-
-	render() {
-		const email = this.isAuthenticated ? this.userStore.credentials.email : "";
-	
-
-
-		return (
-			<div className='topbar'>
-				{this.renderMenu()}
-				<Button
-					onClick={() => this.authenticate()}
-					title={this.isAuthenticated ? 'Log out' : 'Sign in'}
-				/>
-			</div>
-		);
-	}
-}
+*/
