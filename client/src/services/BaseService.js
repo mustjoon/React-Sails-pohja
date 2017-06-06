@@ -32,7 +32,9 @@ class BaseService {
 	
 		return axios.post(url,params,config).then((res) => {
 			return res;
-		});
+		}).catch((error) => {
+			console.log('create error',error.response);
+		})
 	}
 
 	find(){

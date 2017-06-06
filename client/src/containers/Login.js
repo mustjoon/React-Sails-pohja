@@ -48,7 +48,7 @@ class Login extends Component {
 				<form action="#">
 					<input value={credentials.userName} onChange={(e) => 	this.userStore.updateCredentials(e.target)} name="email" type="text"/>
 					<input value={credentials.password} onChange={(e) => 	this.userStore.updateCredentials(e.target)} name="password" type="password"/>
-					<input value={credentials.confirmPassword} onChange={(e) => this.onChange(e)} name="confirmPassword" type="password"/>
+					<input value={credentials.confirmPassword} onChange={(e) => this.userStore.updateCredentials(e.target)} name="confirmPassword" type="password"/>
 					<button onClick={() => this.onRegister()}  type="button">Submit</button>
 				</form>
 				<Link onClick={() => 	this.userStore.authenticationError = null} to='/auth/login'>Login</Link>	

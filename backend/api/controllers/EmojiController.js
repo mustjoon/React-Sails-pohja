@@ -8,6 +8,7 @@
 module.exports = {
 		create: function(req,res){
 			var params = req.params.all();
+			sails.log(req.headers);
 			if(!params.name || !params.emoji){
 				return res.json(401, {err: 'You need to include name and emoji!'});
 			}

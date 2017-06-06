@@ -6,12 +6,17 @@
  */
 
 module.exports = {
-
+  schema: true,
   attributes: {
 
     name : { type: 'string' },
 
-    emoji : { type: 'string' }
+    emoji : { type: 'string' },
+
+    owner: {
+      model: 'user'
+    }
+
   }
 };
 
