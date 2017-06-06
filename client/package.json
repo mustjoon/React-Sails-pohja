@@ -64,8 +64,9 @@
     "moment": "^2.15.1",
     "package": "^1.0.1",
     "postcss-cssnext": "^2.10.0",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
     "react-router-dom": "latest",
     "rfx-core": "^1.5.3",
     "whatwg-fetch": "^1.0.0"

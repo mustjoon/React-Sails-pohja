@@ -3,6 +3,12 @@ import { inject, observer } from 'mobx-react';
 import { Redirect,Link } from 'react-router-dom';
 import {withRouter} from "react-router-dom";
 
+import { FormGroup,FormControl,ControlLabel,HelpBlock,Button,Checkbox } from 'react-bootstrap';
+
+import LoginForm from '../components/forms/LoginForm';
+import RegisterForm from '../components/forms/RegisterForm';
+import ForgotPasswordForm from '../components/forms/ForgotPasswordForm';
+
 @withRouter
 @inject('userStore')
 @observer
@@ -15,6 +21,10 @@ class Login extends Component {
 
 	componentDidMount(){
 		this.userStore.authenticationError = null;
+	}
+
+	onForgot = () => {
+		console.log("Ding");
 	}
 
 
@@ -37,47 +47,9 @@ class Login extends Component {
 
 	}
 
-	renderRegister = () => {
-		if(this.props.match.params.method !== 'register'){
-			return null;
-		}
-		const credentials = this.userStore.credentials;
-		return (
-			<div className='page login'>
-				<h2>Register</h2>
-				<form action="#">
-					<input value={credentials.userName} onChange={(e) => 	this.userStore.updateCredentials(e.target)} name="email" type="text"/>
-					<input value={credentials.password} onChange={(e) => 	this.userStore.updateCredentials(e.target)} name="password" type="password"/>
-					<input value={credentials.confirmPassword} onChange={(e) => this.userStore.updateCredentials(e.target)} name="confirmPassword" type="password"/>
-					<button onClick={() => this.onRegister()}  type="button">Submit</button>
-				</form>
-				<Link onClick={() => 	this.userStore.authenticationError = null} to='/auth/login'>Login</Link>	
-			</div>
-		);
-	}
-
-	renderLogin = () => {
-		if(this.props.match.params.method !== 'login'){
-			return null;
-		}
-		const credentials = this.userStore.credentials;
-		return (
-			<div className='page login'>
-				<h2>Login</h2>
-				<form action="#" type="POST">
-					<input value={credentials.userName} onChange={(e) => 	this.userStore.updateCredentials(e.target)} name="email" type="text"/>
-					<input value={credentials.password} onChange={(e) => 	this.userStore.updateCredentials(e.target)} name="password" type="password"/>
-					<label>Remember me</label>
-					<input type="checkbox" value={credentials.remember} onChange={(e) => this.onRemember(e)}  name="remmeber"/>
-					<button onClick={() => this.onLogin()}  type="button">Submit</button>
-				</form>
-				<Link onClick={() => this.userStore.authenticationError = null}  to='/auth/register'>Register</Link>	
-			</div>
-		)
-	}
-
-
 	render() {
+
+		const credentials = this.userStore.credentials;
 
 
 		if(this.userStore.isAuthenticated){
@@ -85,13 +57,46 @@ class Login extends Component {
 			return null;
 		}
 
-		return (
-			<div>
-				<h3>{this.userStore.authenticationError}</h3>
-				{this.renderRegister()}
-				{this.renderLogin()}
-			</div>
-		);
+		switch (this.props.match.params.method) {
+			case 'register':
+				return (
+					<div>
+						<RegisterForm
+							credentials={credentials}
+							onChange={(e) => this.userStore.updateCredentials(e)}
+							onLogin={() => this.onRegister()}
+						/>
+					</div>
+				);
+			
+
+
+
+			case 'login':
+			return (
+				<LoginForm
+					credentials={credentials}
+					onChange={(e) => this.userStore.updateCredentials(e)}
+					onLogin={() => this.onLogin()}
+				/>
+			);
+		
+
+
+
+
+			default:
+			return (
+				<ForgotPasswordForm
+					credentials={credentials}
+					onChange={(e) => this.userStore.updateCredentials(e)}
+					onForgot={() => this.onForgot()}
+				/>
+			)
+			
+		}
+
+	
 	}
 }
 export default withRouter(Login);

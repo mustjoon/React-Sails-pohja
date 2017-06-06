@@ -14,6 +14,8 @@ class UserService extends BaseService {
 		return axios.post('http://localhost:1337/auth',params).then((res) => {
 
 			const token = res.data.token;
+			
+			console.log(token);
 			localStorage.setItem('token',token);
 
 

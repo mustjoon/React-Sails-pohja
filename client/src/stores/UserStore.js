@@ -1,5 +1,4 @@
-import { observable, action,toJS } from 'mobx';
-import axios from 'axios';
+import { observable, computed, action,toJS } from 'mobx';
 import {userService} from '../services';
 import { autobind } from 'core-decorators';
 import { create, persist } from 'mobx-persist';
@@ -17,6 +16,8 @@ class UserStore {
 		confirmPassword: ''
 	}
 
+	
+
 
 	//User data object!!
 	@persist('object') @observable user = {
@@ -25,7 +26,6 @@ class UserStore {
 
 
   constructor() {
-		console.log('token',localStorage.getItem('token'));
     this.isAuthenticated = localStorage.getItem('token') ? true : false;
   }
 

@@ -6,7 +6,8 @@ import DevTools from 'mobx-react-devtools';
 
 import Emoji from './Emoji';
 import Launch from './Launch';
-import TopBar from './TopBar';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Home from './Home';
 import SubPage from './SubPage';
 import SubItem from './SubItem';
@@ -40,7 +41,7 @@ export default class App extends Component {
 		return (
 			<div className='wrapper'>
 				{/*<DevTools />*/}
-				<TopBar />
+				<Header />
 
 				<Route
 					exact
@@ -62,21 +63,7 @@ export default class App extends Component {
 					path='/auth/:method'
 					component={Login}
 				/>
-
-				
-			
-				<footer>
-					{testval}
-					<a href='https://twitter.com/mhaagens' target='_blank'>
-						@mhaagens
-					</a>
-					{' '}
-					| github:
-					{' '}
-					<a href='https://github.com/mhaagens' target='_blank'>
-						mhaagens
-					</a>
-				</footer>
+				<Footer/>
 			</div>
 		);
 	}
