@@ -12,13 +12,13 @@ class SocketService {
 
 	list(func){
 
-		this.io.socket.get('/room',function(res){
+		this.io.socket.get('/'+this.route,function(res){
 			func(res);
 		});
 	}
 
 	listen(func){
-		this.io.socket.on('room',function(data){
+		this.io.socket.on(this.route,function(data){
 			func(data);
 		})
 	}
