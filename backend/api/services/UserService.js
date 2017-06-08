@@ -10,11 +10,12 @@ var
   tokenSecret = "secretissecet";
 
 // Checks if User Authentication is Valid
-module.exports.isValid = function(req,resemail,password) {
+module.exports.isValid = function(req,res) {
 
-
+		var email = req.params.email;
+		var password = req.params.password;
+		console.log(req);
 	
-  
     if (!email || !password) {
       return res.json(401, {err: 'email and password required'});
     }

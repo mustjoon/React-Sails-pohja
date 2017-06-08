@@ -28,20 +28,8 @@ module.exports = function (req, res, next) {
     return res.json(401, {err: 'No Authorization header was found'});
   }
 
-  console.log(token);
-
   jwToken.verify(token, function (err, token) {
-
-
-    if(err){
-      if(err.expiredAt){
-          return res.json(403, {err: 'expired'});
-      }
-      else{
-        return res.json(401, {err: err});
-      }
-    }
-  
+    if (err) return res.json(401, {err: 'Invalid Token!'});
     req.token = token; // This is the decrypted token or the payload you provided
     next();
   });

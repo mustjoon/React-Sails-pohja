@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 import Home from './Home';
 import NotFound from './NotFound';
 import Login from './Login';
-
+import TicTacToe from './TicTacToe';
 
 
 
@@ -19,7 +19,9 @@ import Protected from './Protected';
 
 @withRouter
 @inject('appState')
+@inject('ticTacToeStore')
 @inject('userStore')
+
 @observer
 export default class App extends Component {
 	constructor(props) {
@@ -54,6 +56,11 @@ export default class App extends Component {
 						isAuthenticated={isAuthenticated}
 						path='/home'
 						component={Home}
+					/>
+					<Protected
+						isAuthenticated={isAuthenticated}
+						path='/tictactoe'
+						component={TicTacToe}
 					/>
 
 					<Protected

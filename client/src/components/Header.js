@@ -14,7 +14,7 @@ const navItems = (isAuthenticated) => {
 
 	if(!isAuthenticated) return null;
 
-	const navs = [{id: 1,text: 'Emojis',to: '/emoji'},{id:2,text: 'ToDo',to: '/todos'}]
+	const navs = [{id: 1,text: 'Emojis',to: '/emoji'},{id:2,text: 'TicTacToe (Sockets testing)',to: '/tictactoe'}]
 
 	let navItems = navs.map((nav) => {
 		return (
