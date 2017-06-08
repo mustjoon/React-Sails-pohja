@@ -48,6 +48,9 @@ module.exports.routes = {
 
     '/emoji' :{
        'post /emoji' : 'EmojiController.create'
+    },
+    '/room' : {
+        'post /room': 'EmojiController.create'
     } 
 
 };

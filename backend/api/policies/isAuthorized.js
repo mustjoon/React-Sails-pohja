@@ -8,6 +8,13 @@
 module.exports = function (req, res, next) {
   var token;
 
+  //console.log(sails.sockets);
+ // console.log(req.socket.client);
+
+  
+
+  console.log(req.headers);
+ 
   if (req.headers && req.headers.authorization) {
     var parts = req.headers.authorization.split(' ');
     if (parts.length == 2) {
