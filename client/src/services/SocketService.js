@@ -11,7 +11,6 @@ class SocketService {
 
 
 	list(func){
-
 		this.io.socket.get('/'+this.route,function(res){
 			func(res);
 		});

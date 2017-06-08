@@ -16,6 +16,9 @@ class TicTacToeStore {
    return this.rooms.length;
  }
 
+ constructor(){
+   this.connect();
+ }
 
  @action connect(){
 	ticTacToeService.connect();
@@ -40,7 +43,6 @@ class TicTacToeStore {
  }
 
  findById(array,id){
-   console.log(array);
   return array.find((item) => {
     return item.id === id;
   });

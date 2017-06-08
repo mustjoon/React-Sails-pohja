@@ -20,7 +20,7 @@ class TicTacToe extends Component {
 	}
 
 	componentDidMount(){
-		this.ticStore.connect();
+	
 	}
 
 	render() {
