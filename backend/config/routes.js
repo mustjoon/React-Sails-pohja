@@ -49,8 +49,11 @@ module.exports.routes = {
     '/emoji' :{
        'post /emoji' : 'EmojiController.create'
     },
-    '/room' : {
-        'post /room': 'EmojiController.create'
-    } 
+    '/room/:roomId' : {
+        'post /room/:roomId/user/:userId' : 'RoomController.joinRoom'
+    },
+    'post /room/:roomId/user/':  'RoomController.joinRoom',
+    'delete /room/:roomId/user/':  'RoomController.leaveRoom',
+    'post /room/:roomId/move/' : 'RoomController.makeMove'
 
 };

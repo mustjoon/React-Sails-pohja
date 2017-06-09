@@ -106,12 +106,12 @@ module.exports.sockets = {
   * app's security.                                                          *
   *                                                                          *
   ***************************************************************************/
-  // beforeConnect: function(handshake, cb) {
+   beforeConnect: function(handshake, cb) {
   //   // `true` allows the connection
-  //   return cb(null, true);
-  //
+     return cb(null, true);
+  
   //   // (`false` would reject the connection)
-  // },
+   },
 
 
   /***************************************************************************
@@ -136,6 +136,6 @@ module.exports.sockets = {
   * transport should be disabled.                                            *
   *                                                                          *
   ***************************************************************************/
-   transports: ["polling", "websocket"]
+ //  transports: ["polling", "websocket"]
 
 };

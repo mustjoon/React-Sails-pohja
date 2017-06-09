@@ -3,7 +3,6 @@ import { FormControl,ControlLabel,Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const RegisterForm = ({onChange,credentials,onRegister,error}) => (
-
 	<div className='page login'>
 		<h2>Register</h2>
 		<h3>{error}</h3>
@@ -35,9 +34,9 @@ const RegisterForm = ({onChange,credentials,onRegister,error}) => (
 				placeholder="Password again"
 				name="confirmPassword"
 			/>
-			<Button  onClick={() => onRegister()}  bsStyle="primary">Login</Button>
+			<Button  onClick={() => onRegister()}  bsStyle="primary">Register</Button>
 		</form>
-		<Link onClick={() => 	this.userStore.authenticationError = null} to='/auth/login'>Login</Link>	
+		<Link onClick={() => 	this.userStore.authenticationError = null} to='/auth/login'>Login nav</Link>	
 	</div>
 );
 

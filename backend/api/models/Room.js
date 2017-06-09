@@ -14,14 +14,16 @@ module.exports = {
   // sending chat message for a room to anyone but people who actually
   // want to get them.  To get chat messages for a room, you subscribe
   // to the 'message' context explicitly.
-  autosubscribe: ['destroy', 'update', 'add:users', 'remove:users'],
+  autosubscribe: ['create','destroy', 'update', 'add:users', 'remove:users'],
   attributes: {
-
+		userCount: 'string',
 		name: 'string',
 		users: {
 			collection: 'user',
 			via: 'rooms'
-		}
+		},
+		positions: 'array',
+
     
   },
 

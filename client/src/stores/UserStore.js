@@ -57,7 +57,7 @@ class UserStore {
 
 		}).catch((err) => {
 
-			console.log(err);
+			console.log(err.response);
 
 			this.authenticationError = err.response.data.err;
 		})

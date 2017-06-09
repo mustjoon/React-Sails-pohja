@@ -12,14 +12,13 @@ import Home from './Home';
 import NotFound from './NotFound';
 import Login from './Login';
 import TicTacToe from './TicTacToe';
-
+import GameRoom from './GameRoom';
 
 
 import Protected from './Protected';
 
 @withRouter
 @inject('appState')
-@inject('ticTacToeStore')
 @inject('userStore')
 
 @observer
@@ -59,10 +58,14 @@ export default class App extends Component {
 					/>
 					<Protected
 						isAuthenticated={isAuthenticated}
+						path='/tictactoe/room/:id'
+						component={GameRoom}
+					/>
+					<Protected
+						isAuthenticated={isAuthenticated}
 						path='/tictactoe'
 						component={TicTacToe}
 					/>
-
 					<Protected
 						isAuthenticated={isAuthenticated}
 						path='/emoji'

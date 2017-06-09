@@ -14,6 +14,10 @@ export default class Emoji extends Component {
 		this.emojiStore = this.props.emojiStore;
 	}
 
+	componentDidMount(){
+		this.emojiStore.getEmojis();
+	}
+
 
 	renderEmojis(){
 		let emojis = this.emojiStore.emojiList.map((emoji) => {

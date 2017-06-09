@@ -64,7 +64,7 @@ class Login extends Component {
 						<RegisterForm
 							credentials={credentials}
 							onChange={(e) => this.userStore.updateCredentials(e)}
-							onLogin={() => this.onRegister()}
+							onRegister={() => this.onRegister()}
 						/>
 					</div>
 				);

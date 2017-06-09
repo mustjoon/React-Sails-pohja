@@ -1,11 +1,15 @@
 
-import SocketService from './SocketService';
+import BaseService from './BaseService';
 
 
-class TicTacToeService extends SocketService {
+class TicTacToeService extends BaseService {
 
 	constructor(app){
 		super('room',app);
+	}
+
+	joinRoom(){
+		return "MITÄ";
 	}
 
 }

@@ -16,13 +16,14 @@ class EmojiStore {
 	@persist('list') @observable emojiList = [];
 
 	constructor(){
-		this.getEmojis();
+	//	this.getEmojis();
 	}
 
 	
 
 	getEmojis(){
 		emojiService.find().then((res) => {
+			console.log(res);
 			this.emojiList = res.data;
 		})
 	}
