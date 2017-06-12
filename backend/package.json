@@ -34,8 +34,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/anonymous node/sails user/backend.git"
+    "url": "git@github.com:mustjoon/React-Sails-pohja.git"
   },
-  "author": "anonymous node/sails user",
+  "author": "Joonas Mustonen",
   "license": ""
 }
