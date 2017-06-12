@@ -3,8 +3,6 @@ import { inject, observer } from 'mobx-react';
 import { Redirect,Link } from 'react-router-dom';
 import {withRouter} from "react-router-dom";
 
-import { FormGroup,FormControl,ControlLabel,HelpBlock,Button,Checkbox } from 'react-bootstrap';
-
 import LoginForm from '../components/forms/LoginForm';
 import RegisterForm from '../components/forms/RegisterForm';
 import ForgotPasswordForm from '../components/forms/ForgotPasswordForm';

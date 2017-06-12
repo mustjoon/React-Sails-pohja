@@ -21,12 +21,16 @@ class TicTacToe extends Component {
 
 	createRoom(){
 		this.ticStore.createRoom()
-		this.props.history.push('/tictactoe/room/'+this.ticStore.currentRoom.id);
+	//	this.props.history.push('/tictactoe/room/'+this.ticStore.currentRoom.id);
 	}
 
 	componentDidMount(){
 		//this.ticStore.getRooms();
 		this.ticStore.listenRooms();
+	}
+
+	componentWillUnmount(){
+		this.ticStore.disconnect();
 	}
 
 	renderRooms(){

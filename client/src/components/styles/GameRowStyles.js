@@ -6,6 +6,7 @@ const styles = {
 	},
 	item: {
 		width: '25px',
+		height: '25px',
 		backgroundColor : 'gray'
 	}
 }

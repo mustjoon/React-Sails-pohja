@@ -59,10 +59,16 @@ module.exports = {
       //Second member
       if(room.userCount == 1){
         mark = 'X';
-        start = true;
+      
       }
       else {
         mark = 'O';
+        start = true;
+
+
+        io.sockets.emit('room'+roomId,{action: 'board', message: {board: room.positions}})
+
+
       }
       
       sails.log.info("COUNT:" + room.userCount);
@@ -121,49 +127,100 @@ module.exports = {
   'makeMove' : function (req,res,next){
      var socket = req.socket;
      var io = sails.io;
-     console.log(req.params);
-     var roomId = req.params.roomId;
-     var pos = req.body.item.pos;
-     console.log(roomId);
 
-
+     var roomId = req.body.id;
+   
+    
+     var mark = req.body.mark;
+     var newPos = req.body.pos;
+    
+    
      
      Room.findOne({id: roomId}).exec(function(err,room){
-       console.log(room);
+      
 
-       if(!room.positions){
-         room.positions = [];
-         room.save();
-         return res.json('FIRST MOVE');
+      //Check turn
 
-       }
-       else {
+      if(mark != room.turn){
+        return res.json({'error': 'error'});
+      }
 
-        room.positions.find((pos) => {
+       room.positions = room.positions.map((roomPos,index) =>{
+      
+        if(roomPos.pos.y === newPos.pos.y && roomPos.pos.x === newPos.pos.x){
+          roomPos.mark = mark;
+        }
+        return roomPos;
+     
+       })
+      
+       room.turn = room.turn == 'X' ? 'O' : 'X';
 
-          //Tiilessä on jo X tai O
-          if(pos.pos.x === pos.x && pos.pos.y === pos.y){
-             io.sockets.emit('room'+roomId,{action: 'moveError',message: {id: userId, error: 'Someone tried to cheat :)'}});
-             return res.pos(401,{err: 'Theres already a mark in the tile'});
-          }
-
-
-        })
-
-
-        room.positions.push(
-         {
-           mark: "X", pos:pos
-         }
-       )
        room.save();
-       }
-    
-    
-     });
+       const message = {action: 'newMove', message: {mark: mark,pos: {x: newPos.pos.x, y: newPos.pos.y}}};
+
+       io.sockets.emit('room'+roomId, message);
+
+   
+        
+
+       function areEqual(){
+        var len = arguments.length;
+        for (var i = 1; i< len; i++){
+            if (arguments[i] === ' ' || arguments[i] === null || arguments[i] !== arguments[i-1])
+              return false;
+        }
+        return true;
+      }
+
+       const winnerMessage = {action: 'winner', message: {mark: mark}};
+
      
 
-   //  return res.json('MAKE MOVE');
+       //Check for winner
+       const rows = 3; //X
+       const length = 3; // Y
+       var pos = room.positions;
+       //ROWS
+       if(areEqual(pos[0].mark, pos[1].mark,pos[2].mark)){
+          io.sockets.emit('room'+roomId, winnerMessage);
+       }
+       else if(areEqual(pos[3].mark,pos[4].mark,pos[5].mark)) {
+         io.sockets.emit('room'+roomId, winnerMessage);
+       }
+       else if(areEqual(pos[6].mark,pos[7].mark,pos[8].mark)) {
+           io.sockets.emit('room'+roomId, winnerMessage);
+       }
+
+       //COLS
+       else if(areEqual(pos[0].mark,pos[3].mark,pos[6].mark)) {
+           io.sockets.emit('room'+roomId, winnerMessage);
+       }
+       else if(areEqual(pos[1].mark,pos[4].mark,pos[7].mark)) {
+          io.sockets.emit('room'+roomId, winnerMessage);
+       }
+       else if(areEqual(pos[2].mark,pos[5].mark,pos[8].mark)) {
+           io.sockets.emit('room'+roomId, winnerMessage);
+       }
+
+       // SIDEWAYS
+
+       else if(areEqual(pos[0].mark,pos[4].mark,pos[8].mark)) {
+         io.sockets.emit('room'+roomId, winnerMessage);
+       }
+       else if(areEqual(pos[6].mark,pos[4].mark,pos[2].mark)) {
+         io.sockets.emit('room'+roomId, winnerMessage);
+       }
+
+       // NO WINNER 
+       else {
+         
+       }
+
+          
+      return res.json({"success" : "success"});
+     });
+ 
   }
 
 };

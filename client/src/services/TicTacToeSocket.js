@@ -17,7 +17,7 @@ class TicTacToeSocket extends SocketService {
 
 		const room = 'room/'+id;
 		this.socket.post('/'+room+"/user/",{},((data) => {
-			console.log(data);
+			console.log('post',data);
 			handleUser(data);
 		}));
 
@@ -25,6 +25,8 @@ class TicTacToeSocket extends SocketService {
 		this.socket.on('room'+id,(data) => {
 			handleUser(data);
 		});
+
+		
 
 	}	
 
@@ -36,15 +38,14 @@ class TicTacToeSocket extends SocketService {
 			this.socket.off('room'+id);
 	}
 
-	makeMove(id,item){
+	makeMove(params,callback){
 
-		const room = 'room/'+id;
+		const room = 'room/'+params.id;
 		const url = '/'+room+'/move/';
  
-		console.log(url);
-
-		this.socket.post(url,{item : item},function(data){
-			console.log(data);
+		
+		this.socket.post(url,params,function(data){
+			callback(data);
 		});
 
 	}

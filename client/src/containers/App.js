@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Home from './Home';
 import NotFound from './NotFound';
-import Login from './Login';
+import Auth from './Auth';
 import TicTacToe from './TicTacToe';
 import GameRoom from './GameRoom';
 
@@ -18,20 +18,12 @@ import GameRoom from './GameRoom';
 import Protected from './Protected';
 
 @withRouter
-@inject('appState')
 @inject('userStore')
-
 @observer
 export default class App extends Component {
 	constructor(props) {
 		super(props);
-		this.appState = props.appState;
-	}
-	componentDidMount() {
-	}
-	authenticate(e) {
-		if (e) e.preventDefault();
-		this.appState.authenticate();
+
 	}
 	render() {
 
@@ -74,7 +66,7 @@ export default class App extends Component {
 
 					<Route
 						path='/auth/:method'
-						component={Login}
+						component={Auth}
 					/>
 
 					<Route
@@ -83,6 +75,7 @@ export default class App extends Component {
 					/>
 				</Switch>
 				<Footer/>
+				<DevTools />
 			</div>
 		);
 	}

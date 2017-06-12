@@ -29,6 +29,10 @@ class SocketService {
 	
 	}
 
+	disconnect(){
+		this.socket.off(this.route);
+	}
+
 
 	list(func){
 		this.socket.get('/'+this.route,function(res){

@@ -20,9 +20,25 @@ module.exports = {
 		name: 'string',
 		users: {
 			collection: 'user',
-			via: 'rooms'
+			via: 'rooms',
+			defaultsTo: []
 		},
-		positions: 'array',
+		turn: {
+			type: 'string',
+			defaultsTo: 'X'
+		},
+		positions: {
+			type: 'array',
+			defaultsTo:  [{mark: ' ', pos:{x:0,y:0}},
+			 {mark: ' ', pos:{x:1,y:0}},
+			 {mark: ' ', pos:{x:2,y:0}},
+			 {mark: ' ', pos:{x:0,y:1}},
+			 {mark: ' ', pos:{x:1,y:1}},
+			 {mark: ' ', pos:{x:2,y:1}},
+			 {mark: ' ', pos:{x:0,y:2}},
+			 {mark: ' ', pos:{x:1,y:2}},
+			 {mark: ' ', pos:{x:2,y:2}}]
+		}
 
     
   },
