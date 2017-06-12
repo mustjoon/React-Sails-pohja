@@ -31,18 +31,15 @@ export default class GamePlatform extends Component {
 		return uiRows;
 	}
 
-
-
-
 	render() {
-		/*
-		if(!this.props.visible){
-			return null;
-		}
-		*/
+
+		if(!this.props.visible) return null;
+
 		return (
 			<table>
-				{this.renderPlatform()}
+				<tbody>
+					{this.renderPlatform()}
+				</tbody>
 			</table>
 		);
 	}

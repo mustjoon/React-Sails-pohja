@@ -54,31 +54,61 @@ module.exports = {
                     "sass-loader?sourceMap"
                 ]
             },
-            {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                use: [
-                    "file-loader?hash=sha512&digest=hex&name=[hash].[ext]",
-                    {
-                        loader: "image-webpack-loader",
-                        options: {
-                            progressive: true,
-                            optimizationLevel: 7,
-                            interlaced: false,
-                            pngquant: {
-                                quality: "65-90",
-                                speed: 4
-                            }
-                        }
-                    }
-                ]
+            
+                {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: ['file-loader?context=src/images&name=images/[path][name].[ext]', {
+          loader: 'image-webpack-loader',
+          query: {
+            mozjpeg: {
+              progressive: true,
             },
+            gifsicle: {
+              interlaced: false,
+            },
+            optipng: {
+              optimizationLevel: 4,
+            },
+            pngquant: {
+              quality: '75-90',
+              speed: 3,
+            },
+          },
+        }],
+        exclude: /node_modules/,
+        include: __dirname,
+      },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 use: "url-loader?limit=10000&mimetype=application/font-woff"
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                use: "file-loader"
+                use: [
+                    {
+                    loader: 'file-loader',
+                    options: {
+                        query: {
+                        name:'assets/[name].[ext]'
+                        }
+                    }
+                    },
+                    {
+                    loader: 'image-webpack-loader',
+                    options: {
+                        query: {
+                        mozjpeg: {
+                            progressive: true,
+                        },
+                        gifsicle: {
+                            interlaced: true,
+                        },
+                        optipng: {
+                            optimizationLevel: 7,
+                        }
+                        }
+                    }
+                    }]
             }
         ]
     },

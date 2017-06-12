@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { FormGroup,FormControl,ControlLabel,HelpBlock,Button } from 'react-bootstrap';
-import { Redirect,Link } from 'react-router-dom';
-import ActiveLink from './ui/ActiveLink';
+import { Link } from 'react-router-dom';
+
 import styles from './styles/Header';
 
 
@@ -43,16 +42,3 @@ const Header = ({isAuthenticated,logout,history}) => {
 };
 
 export default Header;
-
-
-/*
-	renderMenu(){
-		if(!this.isAuthenticated){
-			return null;
-		}
-		return (
-			<div><Link to ='/emoji'> Emojis</Link></div>
-		)
-		
-	}
-*/
