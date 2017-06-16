@@ -1,12 +1,12 @@
 
-import AppState from './AppState';
 import UserStore from './UserStore';
 import EmojiStore from './EmojiStore';
 import TicTacToeStore from './TicTacToeStore';
+import NotificationStore from './NotificationStore';
 
 export default {
-	appState: AppState,
 	userStore: UserStore,
 	emojiStore: EmojiStore,
-	ticTacToeStore: TicTacToeStore
+	ticTacToeStore: TicTacToeStore,
+	notificationStore: NotificationStore
 }

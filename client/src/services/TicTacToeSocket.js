@@ -8,22 +8,22 @@ class TicTacToeSocket extends SocketService {
 		super('room',app);
 	}
 
-	createRoom(name,handleRoom){
+	createRoom(name,callback){
 		this.socket.off('room');
-		this.socket.post('/room',{name: name},(data => handleRoom(data)));
+		this.socket.post('/room',{name: name},(data => callback(data)));
 	}
 
-	joinRoom(id,handleUser){
+	joinRoom(id,callback){
 
 		const room = 'room/'+id;
 		this.socket.post('/'+room+"/user/",{},((data) => {
 			console.log('post',data);
-			handleUser(data);
+			callback(data);
 		}));
 
 		//Attach listening event 
 		this.socket.on('room'+id,(data) => {
-			handleUser(data);
+			callback(data);
 		});
 
 		

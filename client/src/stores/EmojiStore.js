@@ -15,12 +15,6 @@ class EmojiStore {
 	}
 	@persist('list') @observable emojiList = [];
 
-	constructor(){
-	//	this.getEmojis();
-	}
-
-	
-
 	getEmojis(){
 		emojiService.find().then((res) => {
 			console.log(res);
@@ -28,12 +22,17 @@ class EmojiStore {
 		})
 	}
 
-	removeEmoji(id){
+	@action saveEmoji(){
+		const params = toJS(this.emoji);
+		emojiService.create(params).then((res) => {
+			this.emojiList.push(res.data);
+		})
+	}
+
+	@action removeEmoji(id){
 		
 		emojiService.remove(id).then((res => {
-
 			let emoji = this.emojiList.find(x => x.id === res.data.id);
-
 			this.emojiList.remove(emoji);
 		}))
 	}
@@ -44,19 +43,9 @@ class EmojiStore {
 		this.emoji = Object.assign({},this.emoji,values);
 	}
 
-
-	@action saveEmoji(){
-		const params = toJS(this.emoji);
-		emojiService.create(params).then((res) => {
-			console.log(res.data);
-
-			this.emojiList.push(res.data);
-
-		})
+	@computed get count(){
+		return this.emojiList.length;
 	}
-
-
- 
 
 }
 

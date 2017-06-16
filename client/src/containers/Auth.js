@@ -58,13 +58,11 @@ class Login extends Component {
 		switch (this.props.match.params.method) {
 			case 'register':
 				return (
-					<div>
-						<RegisterForm
-							credentials={credentials}
-							onChange={(e) => this.userStore.updateCredentials(e)}
-							onRegister={() => this.onRegister()}
-						/>
-					</div>
+					<RegisterForm
+						credentials={credentials}
+						onChange={(e) => this.userStore.updateCredentials(e)}
+						onRegister={() => this.onRegister()}
+					/>
 				);
 			
 

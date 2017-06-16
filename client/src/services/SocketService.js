@@ -1,3 +1,5 @@
+import {SOCKET_API}  from '../utils/constants';
+
 class SocketService {
 
 	constructor(route,app){
@@ -8,16 +10,16 @@ class SocketService {
 
 	connect() {
 
-
+		console.log(SOCKET_API);
 		var token = localStorage.getItem('token') ||'';
 	
-		this.io.sails.url = 'http://localhost:1337';
+		this.io.sails.url = SOCKET_API ;
 		this.io.sails.headers = {
 			Authorization: 'bearer '+ token
 		}
 			
 
-		this.io.connect('http://localhost:1337');
+		this.io.connect(SOCKET_API);
 		this.socket = this.io.socket;
 
 
@@ -34,17 +36,17 @@ class SocketService {
 	}
 
 
-	list(func){
+	list(callback){
 		this.socket.get('/'+this.route,function(res){
 			console.log(res);
-			func(res);
+			callback(res);
 		});
 	}
 
-	listen(func){
+	listen(callback){
 		this.socket.on(this.route,function(data){
 	
-			func(data);
+			callback(data);
 		})
 	}
 }

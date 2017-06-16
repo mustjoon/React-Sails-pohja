@@ -1,6 +1,6 @@
 import axios from 'axios';
+import {BASE_API} from '../utils/constants';
 
-const BASE_API = 'http://localhost:1337/';
 
 
 class BaseService {
