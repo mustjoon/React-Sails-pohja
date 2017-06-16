@@ -2,11 +2,12 @@ import { observable, action,toJS,computed } from 'mobx';
 import axios from 'axios';
 import {userService} from '../services';
 import { autobind } from 'core-decorators';
-import { create, persist } from 'mobx-persist';
+import { create, observe, persist } from 'mobx-persist';
 
 import {ticTacToeSocket,ticTacToeService} from '../services';
 
 @autobind
+
 class TicTacToeStore {
 
   @observable players = 0;
@@ -41,6 +42,8 @@ class TicTacToeStore {
 
   constructor(){
     this.connect();
+  
+   
   }
 
   @action connect(){
@@ -119,7 +122,9 @@ class TicTacToeStore {
 
    const params = { id: id,mark: this.mark, pos:item}
 
-   ticTacToeSocket.makeMove(params,this.handleUser);
+   return new Promise((resolve,reject) =>{
+     resolve(ticTacToeSocket.makeMove(params,this.handleUser));
+   });
  }
 
 
@@ -141,7 +146,8 @@ class TicTacToeStore {
       case 'room':
       break;
       case 'newMove':
-      this.updateBoard(data)
+      this.updateBoard(data);
+      return "PASKA";
       break;
       case 'winner':
       this.announceWinner(data)
@@ -175,6 +181,8 @@ class TicTacToeStore {
     this.winner = data.message.mark;
     this.over = true;
     console.log(this.winner);
+  
+    return this.over;
     //this.winner = data.mark.
   }
 

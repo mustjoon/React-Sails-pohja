@@ -11,6 +11,7 @@ import {
 
 @withRouter
 @inject('ticTacToeStore')
+@inject('notificationStore')
 @observer
 class GameRoom extends Component {
 	constructor(props) {
@@ -32,6 +33,23 @@ class GameRoom extends Component {
 		this.ticStore.leaveRoom();
 	}
 
+
+	checkStatus(){
+		const room = this.ticStore.currentRoom;
+		if(!room) return null;
+
+		if(!this.props.match.params.id){
+			return (
+				<Redirect to="/emoji"/>
+			)
+		}
+		if(this.ticStore.winner){
+			this.props.notificationStore.setDetails({title: 'Game Over', 'text': this.ticStore.winner + " won"});
+			this.props.notificationStore.visible = true;
+			this.props.history.push('/tictactoe');
+		}
+	}
+
 	renderPlayers(){
 		const room = this.ticStore.currentRoom;
 		if(!room.users) return null;
@@ -41,16 +59,17 @@ class GameRoom extends Component {
 		});
 	}
 
+	makeMove(item){
+		this.ticStore.makeMove(item);
+		setTimeout(this.checkStatus(),500);
+	
+	}
+
 	render() {
 
-		const room = this.ticStore.currentRoom;
-		if(!room) return null;
+		
 
-		if(!this.props.match.params.id){
-			return (
-				<Redirect to="/emoji"/>
-			)
-		}
+	
 		
 		return (
 			<div className='page home'>
@@ -62,7 +81,7 @@ class GameRoom extends Component {
 				<GamePlatform
 					table={this.ticStore.table}
 					visible={this.ticStore.started}
-					onClick={(item) => this.ticStore.makeMove(item)}
+					onClick={(item) => this.makeMove(item)}
 				/>
 				<GameChat
 					messages={[]}

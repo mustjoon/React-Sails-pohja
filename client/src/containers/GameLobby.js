@@ -15,6 +15,7 @@ import {
 
 @withRouter
 @inject('ticTacToeStore')
+@inject('notificationStore')
 @observer
 class TicTacToe extends Component {
 	constructor(props) {
@@ -36,6 +37,11 @@ class TicTacToe extends Component {
 	}
 
 	render() {
+
+
+	
+
+
 		
 		return (
 			<Grid container={true} divided="vertically">
