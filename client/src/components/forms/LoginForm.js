@@ -1,39 +1,40 @@
 import React, { Component } from 'react';
-import { FormGroup,FormControl,ControlLabel,HelpBlock,Button,Checkbox } from 'react-bootstrap';
+import styles from './styles/formStyles';
 import { Redirect,Link } from 'react-router-dom';
-
+import { Button, Checkbox, Form } from 'semantic-ui-react'
 const LoginForm = ({onChange,credentials,onLogin,error}) => (
 
-	<div className='page login'>
-		<h2>Login</h2>
-		<h3>{error}</h3>
-		<form>
-			<ControlLabel>Login</ControlLabel>
-				<FormControl
-				type="text"
-				value={credentials.email}
-				onChange={(e) => 	onChange(e.target)}
-				placeholder="Enter text"
-				name="email"
+
+
+		<Form as='div' style={styles.loginForm}  action="#" >
+			<h2 style={styles.formHeader}>Enter your email and password</h2>
+			<Form.Field>
+				<label>Email</label>
+				<Form.Input
+					type="text"
+					value={credentials.email}
+					onChange={(e) => 	onChange(e.target)}
+					placeholder="Enter text"
+					name="email"
 			/>
-			<FormControl
-				type="password"
-				value={credentials.password}
-				onChange={(e) => 	onChange(e.target)}
-				placeholder="Password"
-				name="password"
-			/>
-			<Checkbox  
-			value={credentials.remember}
-			onChange={(e) => this.onRemember(e)}
-			name="remember"
-			>
-			Remember me
-		</Checkbox>
-			<Button  onClick={() => onLogin()}  bsStyle="primary">Login</Button>
-		</form>
-		<Link onClick={() => this.userStore.authenticationError = null}  to='/auth/register'>Register</Link>	
-	</div>
+			</Form.Field>
+			<Form.Field>
+				<label>Password</label>
+				<Form.Input
+					type="password"
+					value={credentials.password}
+					onChange={(e) => 	onChange(e.target)}
+					placeholder="Password"
+					name="password"
+				/>
+			</Form.Field>
+			<Form.Field>
+				<Form.Checkbox label='Remember me' />
+			</Form.Field>
+		<Button onClick={() => onLogin()} content='Submit' />
+	</Form>
+
+	
 );
 
 export default LoginForm;

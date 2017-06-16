@@ -10,11 +10,11 @@ class TicTacToeSocket extends SocketService {
 
 	createRoom(name,callback){
 		this.socket.off('room');
-		this.socket.post('/room',{name: name},(data => callback(data)));
+		this.socket.post('/room',{name: name},(data => callback.push("tictactoe/room/"+data.room.id)));
 	}
 
 	joinRoom(id,callback){
-
+		console.log(id);
 		const room = 'room/'+id;
 		this.socket.post('/'+room+"/user/",{},((data) => {
 			console.log('post',data);

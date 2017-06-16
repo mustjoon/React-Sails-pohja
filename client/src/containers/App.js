@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 import Notification from '../components/Notification';
-
+import {Grid} from 'semantic-ui-react';
 import Routes from './Routes';
 
 @withRouter
@@ -25,7 +25,7 @@ export default class App extends Component {
 		const isAuthenticated = this.props.userStore.isAuthenticated;
 		
 		return (
-			<div className='wrapper'>
+			<div style={{width: '100%',height:'100%', backgroundColor: '#C4DFE6'}}>
 				<Header
 				isAuthenticated={isAuthenticated}
 				history={this.props.history}

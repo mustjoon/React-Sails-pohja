@@ -2,7 +2,8 @@ const styles = {
 	container: {
 		display: 'flex',
 		flexDirection: 'row',
-	
+		backgroundColor: '#66A5AD',
+		color: 'white',
 		justifyContent: 'spaceBetween'
 	},
 	toggle: {
@@ -12,7 +13,8 @@ const styles = {
 		flex: 10
 	},
 	navItem: {
-		marginRight: '10px'
+		marginRight: '10px',
+		color: 'white'
 	}
 }
 

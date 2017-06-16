@@ -10,7 +10,6 @@ class NotificationStore {
 	@observable title ="Title";
 	@observable text = "Text";
 	@observable onClick = () => {
-		console.log('click');
 		this.visible = false;
 	}
 

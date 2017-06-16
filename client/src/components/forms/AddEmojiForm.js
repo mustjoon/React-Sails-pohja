@@ -1,31 +1,41 @@
 import React, { Component } from 'react';
-import { FormControl,ControlLabel,Button } from 'react-bootstrap';
 import styles from './styles/formStyles';
+import { Button, Checkbox, Form } from 'semantic-ui-react'
 
-const AddEmojiForm = ({onChange,credentials,onClick,error}) => (
+const AddEmojiForm = ({onChange,emoji,onClick,error}) => (
 
-	<div style={styles.container} className='page login'>
-		<h2>Add Emoji</h2>
-		<form>
-			<ControlLabel>Name</ControlLabel>
-				<FormControl
+
+	<Form as='div' action="#" >
+  	<Form.Field>
+			<label>Name</label>
+    	<Form.Input
 				type="text"
+				value={emoji.name}
 				onChange={(e) => 	onChange(e)}
 				placeholder="Name of the emoji"
-				name="name"
+				name="name"			
 			/>
-			<ControlLabel>Emoji</ControlLabel>
-				<FormControl
-			
+		</Form.Field>
+		<Form.Field>
+			<label>Emoji</label>
+    	<Form.Input
+				value={emoji.emoji}
 				type="text"
 				onChange={(e) => 	onChange(e)}
 				placeholder="=)"
 				name="emoji"
 			/>
-			<Button  onClick={() => onClick()}  bsStyle="primary">Add</Button>
-		</form>
-	</div>
+		</Form.Field>
+		 <Form.Button onClick={() => onClick()} content='Submit' />
+	
+	</Form>
+
 );
+
+
+
+
+	
 
 	
 

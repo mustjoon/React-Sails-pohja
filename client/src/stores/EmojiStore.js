@@ -24,14 +24,18 @@ class EmojiStore {
 
 	@action saveEmoji(){
 		const params = toJS(this.emoji);
-		emojiService.create(params).then((res) => {
+		return emojiService.create(params).then((res) => {
 			this.emojiList.push(res.data);
-		})
+			this.emoji.name = '';
+			this.emoji.emoji = '';
+		});
+
+	
 	}
 
 	@action removeEmoji(id){
 		
-		emojiService.remove(id).then((res => {
+		return emojiService.remove(id).then((res => {
 			let emoji = this.emojiList.find(x => x.id === res.data.id);
 			this.emojiList.remove(emoji);
 		}))

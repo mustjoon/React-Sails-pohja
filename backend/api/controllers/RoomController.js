@@ -12,7 +12,7 @@ module.exports = {
   
     return Room.create({name: name}).exec(function(err,room){
       io.sockets.emit('room',{action: 'create',data: {room}});
-   //   return res.json(room);
+      return res.json({ action: 'selfCreate',room});
     })
   },
 

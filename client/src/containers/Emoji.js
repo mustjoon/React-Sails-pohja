@@ -4,6 +4,9 @@ import {withRouter} from "react-router-dom";
 import AddEmojiForm from '../components/forms/AddEmojiForm';
 import EmojiListHeader from '../components/EmojiListHeader';
 import EmojiList from '../components/EmojiList';
+import {Grid} from 'semantic-ui-react';
+
+
 @withRouter
 @inject('emojiStore')
 @inject('notificationStore')
@@ -30,29 +33,38 @@ export default class Emoji extends Component {
 	}
 
 	onRemoveClick(id){
-		this.emojiStore.removeEmoji(id);
-		this.notiStore.setDetails({
+		this.emojiStore.removeEmoji(id).then(() => {
+			this.notiStore.setDetails({
 				title: "Emoji removed",
 				text: '=('
-		});
+			});
+		})
+		
 	}
 
 	render() {
 		
-		return (
-			<div>
-				<EmojiListHeader
-				count={this.emojiStore.count}
-				/>
-				<EmojiList
-				emojis={this.emojiStore.emojiList}
-				onClick={(id) => this.onRemoveClick(id)}
-				/>
-				<AddEmojiForm
-					onChange={(e) => this.emojiStore.updateEmoji(e.target)}
-					onClick={() => this.onCreateClick()}
-				/>
-			</div>
+		return (	
+				<Grid container={true} divided="vertically">
+						<EmojiListHeader
+						count={this.emojiStore.count}
+						/>
+					<Grid.Row columns={2}>
+						<Grid.Column>
+							<EmojiList
+							emojis={this.emojiStore.emojiList}
+							onClick={(id) => this.onRemoveClick(id)}
+							/>
+						</Grid.Column>
+						<Grid.Column>
+							<AddEmojiForm
+								emoji={this.emojiStore.emoji}
+								onChange={(e) => this.emojiStore.updateEmoji(e.target)}
+								onClick={() => this.onCreateClick()}
+							/>
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
 		);
 	}
 }

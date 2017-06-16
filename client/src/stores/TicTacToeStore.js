@@ -10,10 +10,12 @@ import {ticTacToeSocket,ticTacToeService} from '../services';
 class TicTacToeStore {
 
   @observable players = 0;
-  @observable rooms = [{}];
+  @observable rooms = observable([]);
   @observable roomName = "";
   @observable currentRoom = {};
   @observable gameError = null;
+  @observable isMaking = false;
+  @observable isFinishedMaking = false;
   @observable mark = '';
   @observable started = false;
   @observable over = false;
@@ -31,6 +33,10 @@ class TicTacToeStore {
                     
   @computed get count(){
     return this.rooms.length;
+  }
+
+  @computed get allRooms(){
+    return toJS(this.rooms);
   }
 
   constructor(){
@@ -68,12 +74,13 @@ class TicTacToeStore {
   }
 
   @action onChangeName(e){
-  
-    this.roomName = e.target.value;
+   
+    this.roomName = e.value;
   }
 
-  @action createRoom(){
-    ticTacToeSocket.createRoom(this.roomName,this.handleUser);
+  @action createRoom(callback){
+    this.isMaking = true;
+    return  Promise.resolve(ticTacToeSocket.createRoom(this.roomName,callback));
     // ticTacToeSocket.joinRoom(this.rooms[this.rooms.length-1].id,this.handleUser);
   }
 
@@ -138,6 +145,7 @@ class TicTacToeStore {
       break;
       case 'winner':
       this.announceWinner(data)
+      break;
     }
   }
 
@@ -183,10 +191,11 @@ class TicTacToeStore {
  }
 
  addRoom(room){
+   console.log(room);
    switch(room.action) {
       case 'create':
-      console.log(room.data);
         this.rooms[this.rooms.length] = room.data.room;
+        this.rooms = this.rooms;
       break;
       case 'destroyed':
         let item = this.findById(this.rooms,room.id);
@@ -194,6 +203,13 @@ class TicTacToeStore {
       break;
       case 'updated':
        //ToDo: UPDATE
+      break;
+      case 'selfCreate':
+    
+      this.currentRoom = {};
+      this.currentRoom.id = room.room.id;
+      this.isFinishedMaking = true;
+      //this.joinRoom();
       break;
    }
  }

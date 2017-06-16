@@ -6,6 +6,14 @@ const styles = {
 		alignSelf: 'center',
 		justifyContent: 'center'
 		
+	},
+	loginForm: {
+		maxWidth: '50%',
+		marginLeft: '25%',
+		marginTop: '10%'
+	},
+	formHeader: {
+		textAlign: 'center'
 	}
 }
 

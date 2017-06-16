@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import Home from './Home';
 import NotFound from './NotFound';
 import Auth from './Auth';
-import TicTacToe from './TicTacToe';
+import GameLobby from './GameLobby';
 import GameRoom from './GameRoom';
 
 const Routes = ({ isAuthenticated })=> {
@@ -35,7 +35,7 @@ const Routes = ({ isAuthenticated })=> {
 				<Protected
 					isAuthenticated={isAuthenticated}
 					path='/tictactoe'
-					component={TicTacToe}
+					component={GameLobby}
 				/>
 				<Protected
 					isAuthenticated={isAuthenticated}
